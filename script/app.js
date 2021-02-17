@@ -5,6 +5,7 @@
 	// const is the same as let, but it cannot be redefined
 	const puzzleSelectors = document.querySelectorAll ("#buttonHolder img"),
 				dropZoneContainer = document.querySelector(".puzzle-board"),
+				dragZone = document.querySelector(".puzzle-pieces"),
 				dragImages = document.querySelectorAll(".puzzle-image"),
 				dropZones = document.querySelectorAll(".drop-zone");
 
@@ -40,6 +41,15 @@
 	// this function runs when the bottom nav bottons are clicked
 	// it changes the bg image of the drop zone div when click on the small image below
 	function changeBGImage() {
+		// 1. check all the drop zones
+		// 2. if a drop zone has an img in it, then it needs to go back where it came from
+		// 3. append it back into the drag Zone
+		dropZones.forEach(zone => {
+			if (zone.childElementCount > 0){
+				dragZone.appendChild(zone.firstElementChild);
+			}
+		})
+
 		// get the custom data attribute from the clicked button
 		let currentImage = this.dataset.imageref;
 		// `` is NOT a quote. it's a JS templete string
